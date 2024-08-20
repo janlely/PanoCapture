@@ -1,0 +1,589 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E5236CAB2C741D300094FB82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CAA2C741D300094FB82 /* AppDelegate.swift */; };
+		E5236CAD2C741D300094FB82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CAC2C741D300094FB82 /* ViewController.swift */; };
+		E5236CAF2C741D320094FB82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5236CAE2C741D320094FB82 /* Assets.xcassets */; };
+		E5236CB22C741D320094FB82 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E5236CB12C741D320094FB82 /* Base */; };
+		E5236CBD2C741D320094FB82 /* PanoCaptureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CBC2C741D320094FB82 /* PanoCaptureTests.swift */; };
+		E5236CC72C741D320094FB82 /* PanoCaptureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CC62C741D320094FB82 /* PanoCaptureUITests.swift */; };
+		E5236CC92C741D320094FB82 /* PanoCaptureUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CC82C741D320094FB82 /* PanoCaptureUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E5236CB92C741D320094FB82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5236C9F2C741D300094FB82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E5236CA62C741D300094FB82;
+			remoteInfo = PanoCapture;
+		};
+		E5236CC32C741D320094FB82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5236C9F2C741D300094FB82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E5236CA62C741D300094FB82;
+			remoteInfo = PanoCapture;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E5236CA72C741D300094FB82 /* PanoCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PanoCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5236CAA2C741D300094FB82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E5236CAC2C741D300094FB82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E5236CAE2C741D320094FB82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E5236CB12C741D320094FB82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E5236CB32C741D320094FB82 /* PanoCapture.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PanoCapture.entitlements; sourceTree = "<group>"; };
+		E5236CB82C741D320094FB82 /* PanoCaptureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PanoCaptureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5236CBC2C741D320094FB82 /* PanoCaptureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanoCaptureTests.swift; sourceTree = "<group>"; };
+		E5236CC22C741D320094FB82 /* PanoCaptureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PanoCaptureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5236CC62C741D320094FB82 /* PanoCaptureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanoCaptureUITests.swift; sourceTree = "<group>"; };
+		E5236CC82C741D320094FB82 /* PanoCaptureUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanoCaptureUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E5236CA42C741D300094FB82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5236CB52C741D320094FB82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5236CBF2C741D320094FB82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E5236C9E2C741D300094FB82 = {
+			isa = PBXGroup;
+			children = (
+				E5236CA92C741D300094FB82 /* PanoCapture */,
+				E5236CBB2C741D320094FB82 /* PanoCaptureTests */,
+				E5236CC52C741D320094FB82 /* PanoCaptureUITests */,
+				E5236CA82C741D300094FB82 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E5236CA82C741D300094FB82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E5236CA72C741D300094FB82 /* PanoCapture.app */,
+				E5236CB82C741D320094FB82 /* PanoCaptureTests.xctest */,
+				E5236CC22C741D320094FB82 /* PanoCaptureUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E5236CA92C741D300094FB82 /* PanoCapture */ = {
+			isa = PBXGroup;
+			children = (
+				E5236CAA2C741D300094FB82 /* AppDelegate.swift */,
+				E5236CAC2C741D300094FB82 /* ViewController.swift */,
+				E5236CAE2C741D320094FB82 /* Assets.xcassets */,
+				E5236CB02C741D320094FB82 /* Main.storyboard */,
+				E5236CB32C741D320094FB82 /* PanoCapture.entitlements */,
+			);
+			path = PanoCapture;
+			sourceTree = "<group>";
+		};
+		E5236CBB2C741D320094FB82 /* PanoCaptureTests */ = {
+			isa = PBXGroup;
+			children = (
+				E5236CBC2C741D320094FB82 /* PanoCaptureTests.swift */,
+			);
+			path = PanoCaptureTests;
+			sourceTree = "<group>";
+		};
+		E5236CC52C741D320094FB82 /* PanoCaptureUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E5236CC62C741D320094FB82 /* PanoCaptureUITests.swift */,
+				E5236CC82C741D320094FB82 /* PanoCaptureUITestsLaunchTests.swift */,
+			);
+			path = PanoCaptureUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E5236CA62C741D300094FB82 /* PanoCapture */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5236CCC2C741D320094FB82 /* Build configuration list for PBXNativeTarget "PanoCapture" */;
+			buildPhases = (
+				E5236CA32C741D300094FB82 /* Sources */,
+				E5236CA42C741D300094FB82 /* Frameworks */,
+				E5236CA52C741D300094FB82 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PanoCapture;
+			productName = PanoCapture;
+			productReference = E5236CA72C741D300094FB82 /* PanoCapture.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E5236CB72C741D320094FB82 /* PanoCaptureTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5236CCF2C741D320094FB82 /* Build configuration list for PBXNativeTarget "PanoCaptureTests" */;
+			buildPhases = (
+				E5236CB42C741D320094FB82 /* Sources */,
+				E5236CB52C741D320094FB82 /* Frameworks */,
+				E5236CB62C741D320094FB82 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E5236CBA2C741D320094FB82 /* PBXTargetDependency */,
+			);
+			name = PanoCaptureTests;
+			productName = PanoCaptureTests;
+			productReference = E5236CB82C741D320094FB82 /* PanoCaptureTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E5236CC12C741D320094FB82 /* PanoCaptureUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5236CD22C741D320094FB82 /* Build configuration list for PBXNativeTarget "PanoCaptureUITests" */;
+			buildPhases = (
+				E5236CBE2C741D320094FB82 /* Sources */,
+				E5236CBF2C741D320094FB82 /* Frameworks */,
+				E5236CC02C741D320094FB82 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E5236CC42C741D320094FB82 /* PBXTargetDependency */,
+			);
+			name = PanoCaptureUITests;
+			productName = PanoCaptureUITests;
+			productReference = E5236CC22C741D320094FB82 /* PanoCaptureUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E5236C9F2C741D300094FB82 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					E5236CA62C741D300094FB82 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					E5236CB72C741D320094FB82 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = E5236CA62C741D300094FB82;
+					};
+					E5236CC12C741D320094FB82 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = E5236CA62C741D300094FB82;
+					};
+				};
+			};
+			buildConfigurationList = E5236CA22C741D300094FB82 /* Build configuration list for PBXProject "PanoCapture" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E5236C9E2C741D300094FB82;
+			productRefGroup = E5236CA82C741D300094FB82 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E5236CA62C741D300094FB82 /* PanoCapture */,
+				E5236CB72C741D320094FB82 /* PanoCaptureTests */,
+				E5236CC12C741D320094FB82 /* PanoCaptureUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E5236CA52C741D300094FB82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5236CAF2C741D320094FB82 /* Assets.xcassets in Resources */,
+				E5236CB22C741D320094FB82 /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5236CB62C741D320094FB82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5236CC02C741D320094FB82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E5236CA32C741D300094FB82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5236CAD2C741D300094FB82 /* ViewController.swift in Sources */,
+				E5236CAB2C741D300094FB82 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5236CB42C741D320094FB82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5236CBD2C741D320094FB82 /* PanoCaptureTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5236CBE2C741D320094FB82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5236CC72C741D320094FB82 /* PanoCaptureUITests.swift in Sources */,
+				E5236CC92C741D320094FB82 /* PanoCaptureUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E5236CBA2C741D320094FB82 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E5236CA62C741D300094FB82 /* PanoCapture */;
+			targetProxy = E5236CB92C741D320094FB82 /* PBXContainerItemProxy */;
+		};
+		E5236CC42C741D320094FB82 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E5236CA62C741D300094FB82 /* PanoCapture */;
+			targetProxy = E5236CC32C741D320094FB82 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E5236CB02C741D320094FB82 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E5236CB12C741D320094FB82 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E5236CCA2C741D320094FB82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E5236CCB2C741D320094FB82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		E5236CCD2C741D320094FB82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PanoCapture/PanoCapture.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Y5653L4HB;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = janlely.PanoCapture;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E5236CCE2C741D320094FB82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PanoCapture/PanoCapture.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Y5653L4HB;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = janlely.PanoCapture;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		E5236CD02C741D320094FB82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Y5653L4HB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = janlely.PanoCaptureTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PanoCapture.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PanoCapture";
+			};
+			name = Debug;
+		};
+		E5236CD12C741D320094FB82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Y5653L4HB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = janlely.PanoCaptureTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PanoCapture.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PanoCapture";
+			};
+			name = Release;
+		};
+		E5236CD32C741D320094FB82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Y5653L4HB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = janlely.PanoCaptureUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = PanoCapture;
+			};
+			name = Debug;
+		};
+		E5236CD42C741D320094FB82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Y5653L4HB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = janlely.PanoCaptureUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = PanoCapture;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E5236CA22C741D300094FB82 /* Build configuration list for PBXProject "PanoCapture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5236CCA2C741D320094FB82 /* Debug */,
+				E5236CCB2C741D320094FB82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E5236CCC2C741D320094FB82 /* Build configuration list for PBXNativeTarget "PanoCapture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5236CCD2C741D320094FB82 /* Debug */,
+				E5236CCE2C741D320094FB82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E5236CCF2C741D320094FB82 /* Build configuration list for PBXNativeTarget "PanoCaptureTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5236CD02C741D320094FB82 /* Debug */,
+				E5236CD12C741D320094FB82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E5236CD22C741D320094FB82 /* Build configuration list for PBXNativeTarget "PanoCaptureUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5236CD32C741D320094FB82 /* Debug */,
+				E5236CD42C741D320094FB82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E5236C9F2C741D300094FB82 /* Project object */;
+}
