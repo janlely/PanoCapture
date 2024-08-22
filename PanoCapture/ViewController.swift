@@ -21,15 +21,6 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
-    override func keyDown(with event: NSEvent) {
-        if event.keyCode == 53 { // ESC 键的键码是 53
-            NSLog("Esc")
-            NSApplication.shared.terminate(nil)
-        } else {
-            super.keyDown(with: event)
-        }
-    }
     
 }
 

@@ -8,23 +8,39 @@
 import Foundation
 import Cocoa
 
-class MainView: NSView {
+class MainView: NSView, CAAnimationDelegate {
     
     var startPoint: NSPoint?
     var currentPoint: NSPoint?
+    var selectionRect: NSRect!
+    var selectionLayer: CAShapeLayer?
+    
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        NSLog("wantsLayer")
+        self.wantsLayer = true // 告诉NSView使用layer
+        self.layer = CALayer()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NSLog("wantsLayer")
+        self.wantsLayer = true // 告诉NSView使用layer
+        self.layer = CALayer()
+    }
     
     override func mouseDown(with event: NSEvent) {
         NSLog("mouseDown")
-        startPoint = event.locationInWindow
+        startPoint = self.convert(event.locationInWindow, from: nil)
     }
     
     override func mouseDragged(with event: NSEvent) {
-        NSLog("mouseDragged")
-        currentPoint = event.locationInWindow
-        needsDisplay = true
+        currentPoint = self.convert(event.locationInWindow, from: nil)
+        updateSelectionLayer()
     }
     
     override func mouseUp(with event: NSEvent) {
+        NSLog("mouseUp")
         needsDisplay = true
         guard let sp = startPoint, let cp = currentPoint else {
             return
@@ -33,7 +49,11 @@ class MainView: NSView {
             return
         }
         window?.ignoresMouseEvents = true
-        //开启5秒结束截图倒计时
+        NSCursor.arrow.set()
+        // 在这里调用闪光动画
+        if let selectionRect = selectionRect {
+            flashSelectionArea(selectionRect)
+        }
     }
     
     override func viewDidMoveToWindow() {
@@ -45,16 +65,43 @@ class MainView: NSView {
         return true
     }
     
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        if let startPoint = startPoint, let endPoint = currentPoint {
-            NSColor.blue.setStroke()
-            let selectionRect = NSRect(x: min(startPoint.x, endPoint.x),
-                                       y: min(startPoint.y, endPoint.y),
-                                       width: abs(endPoint.x - startPoint.x),
-                                       height: abs(endPoint.y - startPoint.y))
-            NSBezierPath(rect: selectionRect).stroke()
+    func flashSelectionArea(_ rect: NSRect) {
+        NSLog("flashSelectionArea")
+        let flashLayer = CALayer()
+        flashLayer.frame = rect
+        flashLayer.backgroundColor = NSColor.white.withAlphaComponent(0.5).cgColor
+        flashLayer.zPosition = 1000 // 确保闪光层在顶部
+        self.layer?.addSublayer(flashLayer)
+
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.fromValue = 1.0
+        animation.toValue = 0.0
+        animation.duration = 0.25 // 闪光持续时间
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.delegate = self
+        flashLayer.add(animation, forKey: "flashAnimation")
+
+        // 动画完成后移除layer
+        CATransaction.setCompletionBlock {
+            flashLayer.removeFromSuperlayer()
         }
     }
     
+    func updateSelectionLayer() {
+        if selectionLayer == nil {
+            selectionLayer = CAShapeLayer()
+            selectionLayer?.strokeColor = NSColor.blue.cgColor
+            selectionLayer?.fillColor = nil // 无填充
+            selectionLayer?.lineWidth = 1.0
+            self.layer?.addSublayer(selectionLayer!)
+        }
+
+        if let startPoint = startPoint, let currentPoint = currentPoint {
+            selectionRect = NSRect(x: min(startPoint.x, currentPoint.x),
+                              y: min(startPoint.y, currentPoint.y),
+                              width: abs(currentPoint.x - startPoint.x),
+                              height: abs(currentPoint.y - startPoint.y))
+            selectionLayer?.path = CGPath(rect: selectionRect, transform: nil)
+        }
+    }
 }

@@ -16,7 +16,9 @@ class MainWindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         window?.isOpaque = false
-        window?.backgroundColor = NSColor.black.withAlphaComponent(0.5)
+//        window?.backgroundColor = NSColor.black.withAlphaComponent(0.5)
+        window?.backgroundColor = NSColor.clear
+        window?.ignoresMouseEvents = false
         window?.acceptsMouseMovedEvents = true
         window?.styleMask = [.borderless, .fullSizeContentView]
         window?.titlebarAppearsTransparent = true
