@@ -8,9 +8,10 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.becomeFirstResponder()
 
         // Do any additional setup after loading the view.
     }
@@ -21,6 +22,14 @@ class ViewController: NSViewController {
         }
     }
 
-
+    override func keyDown(with event: NSEvent) {
+        if event.keyCode == 53 { // ESC 键的键码是 53
+            NSLog("Esc")
+            NSApplication.shared.terminate(nil)
+        } else {
+            super.keyDown(with: event)
+        }
+    }
+    
 }
 

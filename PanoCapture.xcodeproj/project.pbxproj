@@ -14,6 +14,10 @@
 		E5236CBD2C741D320094FB82 /* PanoCaptureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CBC2C741D320094FB82 /* PanoCaptureTests.swift */; };
 		E5236CC72C741D320094FB82 /* PanoCaptureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CC62C741D320094FB82 /* PanoCaptureUITests.swift */; };
 		E5236CC92C741D320094FB82 /* PanoCaptureUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CC82C741D320094FB82 /* PanoCaptureUITestsLaunchTests.swift */; };
+		E5236CD82C742C1C0094FB82 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CD72C742C1C0094FB82 /* MainWindowController.swift */; };
+		E5236CE22C7476620094FB82 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CE12C7476620094FB82 /* MainView.swift */; };
+		E5236CE52C7498810094FB82 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CE42C7498810094FB82 /* MainWindow.swift */; };
+		E5236D262C75D3540094FB82 /* ScreenShotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236D252C75D3540094FB82 /* ScreenShotHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,11 @@
 		E5236CC22C741D320094FB82 /* PanoCaptureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PanoCaptureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5236CC62C741D320094FB82 /* PanoCaptureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanoCaptureUITests.swift; sourceTree = "<group>"; };
 		E5236CC82C741D320094FB82 /* PanoCaptureUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanoCaptureUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E5236CD72C742C1C0094FB82 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		E5236CE12C7476620094FB82 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E5236CE32C7498530094FB82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E5236CE42C7498810094FB82 /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		E5236D252C75D3540094FB82 /* ScreenShotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,11 +104,16 @@
 		E5236CA92C741D300094FB82 /* PanoCapture */ = {
 			isa = PBXGroup;
 			children = (
+				E5236CE32C7498530094FB82 /* Info.plist */,
+				E5236CD72C742C1C0094FB82 /* MainWindowController.swift */,
 				E5236CAA2C741D300094FB82 /* AppDelegate.swift */,
 				E5236CAC2C741D300094FB82 /* ViewController.swift */,
 				E5236CAE2C741D320094FB82 /* Assets.xcassets */,
 				E5236CB02C741D320094FB82 /* Main.storyboard */,
 				E5236CB32C741D320094FB82 /* PanoCapture.entitlements */,
+				E5236CE12C7476620094FB82 /* MainView.swift */,
+				E5236CE42C7498810094FB82 /* MainWindow.swift */,
+				E5236D252C75D3540094FB82 /* ScreenShotHelper.swift */,
 			);
 			path = PanoCapture;
 			sourceTree = "<group>";
@@ -252,7 +266,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5236CAD2C741D300094FB82 /* ViewController.swift in Sources */,
+				E5236D262C75D3540094FB82 /* ScreenShotHelper.swift in Sources */,
+				E5236CE22C7476620094FB82 /* MainView.swift in Sources */,
+				E5236CE52C7498810094FB82 /* MainWindow.swift in Sources */,
 				E5236CAB2C741D300094FB82 /* AppDelegate.swift in Sources */,
+				E5236CD82C742C1C0094FB82 /* MainWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +448,8 @@
 				DEVELOPMENT_TEAM = 5Y5653L4HB;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PanoCapture/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -457,6 +477,8 @@
 				DEVELOPMENT_TEAM = 5Y5653L4HB;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PanoCapture/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
