@@ -7,13 +7,14 @@
 
 import Cocoa
 
+import os.log
+let log = OSLog(subsystem: "com.janlely.PanoCapture", category: "screen-capture")
+
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var screenShotHelper: ScreenShotHelper?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        screenShotHelper = ScreenShotHelper()
-        let _ = screenShotHelper?.enableEventTap()
+        MenuManager.shared.initialize()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

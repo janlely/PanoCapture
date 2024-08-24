@@ -7,30 +7,52 @@
 
 import Foundation
 import Cocoa
+import ScreenCaptureKit
 
 class ScreenShotHelper {
+    
+    static let shared: ScreenShotHelper = ScreenShotHelper()
+    
     var eventTap: CFMachPort?
     var runLoopSource: CFRunLoopSource?
+    var mainWindowController: MainWindowController?
+    var currentScreen: NSScreen?
+    
+    private init() {
+    }
+    
+    func getWindowController() -> MainWindowController {
+        if mainWindowController == nil {
+            // 创建窗口控制器实例
+            let storyboard = NSStoryboard(name: "Main", bundle: nil)
+            mainWindowController = storyboard.instantiateController(withIdentifier: "mainWindowController") as? MainWindowController
+        }
+        return mainWindowController!
+    }
     
     //阻止mouseMoved事件以防止鼠标触达屏幕顶部时触发状态栏显示
     //阻止鼠标移动到屏幕顶部，防止失去焦点
-    func enableEventTap() -> Bool {
-        
-        guard let eventTap = CGEvent.tapCreate(tap: .cgSessionEventTap,
-                                               place: .headInsertEventTap,
-                                               options: .defaultTap,
-                                               eventsOfInterest: CGEventMask(1 << CGEventType.keyDown.rawValue | 1 << CGEventType.leftMouseDown.rawValue | 1 << CGEventType.rightMouseDown.rawValue | 1 << CGEventType.mouseMoved.rawValue),
-                                               callback: myCGEventCallback,
-                                               userInfo: nil) else {
-            print("Failed to create event tap")
-            return false
+    func enableEventTap() {
+        if eventTap == nil {
+            eventTap = CGEvent.tapCreate(tap: .cgSessionEventTap,
+                                         place: .headInsertEventTap,
+                                         options: .defaultTap,
+                                         eventsOfInterest: CGEventMask(1 << CGEventType.keyDown.rawValue | 1 << CGEventType.leftMouseDown.rawValue | 1 << CGEventType.mouseMoved.rawValue),
+                                         callback: myCGEventCallback,
+                                         userInfo: nil)
         }
-        self.eventTap = eventTap
         
-        runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
+        //二次查检
+        if eventTap == nil {
+            print("Failed to create event tap")
+            return
+        }
+        
+        if runLoopSource == nil {
+            runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
+        }
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
-        CGEvent.tapEnable(tap: eventTap, enable: true)
-        return true
+        CGEvent.tapEnable(tap: eventTap!, enable: true)
     }
     
     func disableEventTap() {
@@ -46,20 +68,77 @@ class ScreenShotHelper {
         
     }
     
-    func captureScreenRect(_ rect: CGRect) -> NSImage? {
-        guard let screen = NSScreen.main else { return nil }
-        let screenRect = screen.frame
-        let captureRect = CGRect(x: screenRect.origin.x + rect.origin.x,
-                                 y: screenRect.height - rect.origin.y - rect.height,
-                                 width: rect.width,
-                                 height: rect.height)
 
-        guard let cgImage = CGWindowListCreateImage(captureRect, .optionOnScreenOnly, kCGNullWindowID, [.bestResolution, .boundsIgnoreFraming]) else { return nil }
-        return NSImage(cgImage: cgImage, size: rect.size)
+    func captureScreenshot(display: SCDisplay, rect: CGRect, completion: @escaping (CGImage?) -> Void) {
+        
+        let filter = SCContentFilter(display: display, excludingApplications: [], exceptingWindows: [])
+        
+        let configuration = SCStreamConfiguration()
+        // 设置为指定区域抓取
+        configuration.showsCursor = false
+        configuration.sourceRect = rect
+        
+        SCScreenshotManager.captureImage(contentFilter: filter, configuration: configuration) { image, error in
+            if let error = error {
+                print("Error capturing screenshot: \(error.localizedDescription)")
+                completion(nil)
+            } else if let cgImage = image {
+                completion(cgImage)
+            } else {
+                print("No image captured")
+                completion(nil)
+            }
+        }
     }
-
+    
+    func findCurrentScreen() -> NSScreen? {
+        let mouseLocation = NSEvent.mouseLocation
+        let screens = NSScreen.screens
+        currentScreen = screens.first { $0.frame.contains(mouseLocation) }
+        return currentScreen
+    }
+    
+    func clear() {
+        ScreenShotHelper.shared.disableEventTap()
+        (ScreenShotHelper.shared.getWindowController().contentViewController?.view as? MainView)?.removeSubLayer()
+        ScreenShotHelper.shared.getWindowController().window?.ignoresMouseEvents = false
+        ScreenShotHelper.shared.getWindowController().window?.orderOut(nil)
+    }
+    
+    func saveImage(_ rect: NSRect) {
+        let channel = Channel<CGImage>()
+        Task {
+            do {
+                let content = try await SCShareableContent.current
+                
+                guard !content.displays.isEmpty else {
+                    print("No displays found")
+                    channel.send(nil)
+                    return
+                }
+                
+                content.displays.forEach { display in
+                    if display.frame.origin == rect.origin && display.frame.size == rect.size {
+                        captureScreenshot(display: display, rect: rect, completion: {image in
+                            channel.send(image)
+                        })
+                    }
+                }
+                
+            } catch {
+                print("Error getting shareable content: \(error.localizedDescription)")
+                channel.send(nil)
+            }
+        }
+        
+        guard let image = channel.receive() else {
+            return
+        }
+        
+        ImageHandler.shared.addImage(image)
+    }
+    
 }
-
 
 func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     if type == CGEventType.mouseMoved {
@@ -73,17 +152,29 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
         // 检查按键代码是否为Esc键 (键码 53)
         if keyCode == 53 {
             //退出程序
-            NSApplication.shared.terminate(nil)
+            ScreenShotHelper.shared.clear()
             return nil
         }
     }
     //阻止鼠标触达屏幕顶部，因为在顶部点击会使窗口失去焦点
-    if event.location.y == 0 {
+    if mouseHitTop(event) {
         NSLog("reset mouse")
-        event.location.y = 1
+        pullMouseBack(event)
     }
     return Unmanaged.passRetained(event)
 }
+
+func mouseHitTop(_ event: CGEvent) -> Bool {
+    return event.location.y <= (ScreenShotHelper.shared.currentScreen?.frame.minY)!
+}
+
+func pullMouseBack(_ event: CGEvent) {
+    event.location.y = (ScreenShotHelper.shared.currentScreen?.frame.minY)!
+}
+
+
+
+
 
 //extension CGEventType {
 //    var description: String {

@@ -7,6 +7,7 @@
 
 import Foundation
 import Cocoa
+import os.log
 
 class MainView: NSView, CAAnimationDelegate {
     
@@ -17,20 +18,21 @@ class MainView: NSView, CAAnimationDelegate {
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        NSLog("wantsLayer")
+        os_log(.info, log: log, "wantsLayer ")
         self.wantsLayer = true // 告诉NSView使用layer
         self.layer = CALayer()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        NSLog("wantsLayer")
+        os_log(.info, log: log, "wantsLayer ")
         self.wantsLayer = true // 告诉NSView使用layer
         self.layer = CALayer()
     }
     
+    
     override func mouseDown(with event: NSEvent) {
-        NSLog("mouseDown")
+        NSLog("\(String(describing: NSWorkspace.shared.frontmostApplication?.bundleIdentifier))")
         startPoint = self.convert(event.locationInWindow, from: nil)
     }
     
@@ -67,6 +69,38 @@ class MainView: NSView, CAAnimationDelegate {
     
     func flashSelectionArea(_ rect: NSRect) {
         NSLog("flashSelectionArea")
+        //保存图片
+        ScreenShotHelper.shared.saveImage(rect)
+        //播放动画
+        playCaptureAnimation(rect)
+
+    }
+    
+    func updateSelectionLayer() {
+        if selectionLayer == nil {
+            selectionLayer = CAShapeLayer()
+            selectionLayer?.strokeColor = NSColor.blue.cgColor
+            selectionLayer?.fillColor = nil // 无填充
+            selectionLayer?.lineWidth = 1.0
+            self.layer?.addSublayer(selectionLayer!)
+        }
+        
+        if let startPoint = startPoint, let currentPoint = currentPoint {
+            selectionRect = NSRect(x: min(startPoint.x, currentPoint.x),
+                              y: min(startPoint.y, currentPoint.y),
+                              width: abs(currentPoint.x - startPoint.x),
+                              height: abs(currentPoint.y - startPoint.y))
+            selectionLayer?.path = CGPath(rect: selectionRect, transform: nil)
+        }
+    }
+    
+    func removeSubLayer() {
+        self.selectionLayer?.removeFromSuperlayer()
+        self.selectionLayer = nil
+    }
+    
+    func playCaptureAnimation(_ rect: NSRect) {
+        
         let flashLayer = CALayer()
         flashLayer.frame = rect
         flashLayer.backgroundColor = NSColor.white.withAlphaComponent(0.5).cgColor
@@ -80,28 +114,10 @@ class MainView: NSView, CAAnimationDelegate {
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         animation.delegate = self
         flashLayer.add(animation, forKey: "flashAnimation")
-
+        
         // 动画完成后移除layer
         CATransaction.setCompletionBlock {
             flashLayer.removeFromSuperlayer()
-        }
-    }
-    
-    func updateSelectionLayer() {
-        if selectionLayer == nil {
-            selectionLayer = CAShapeLayer()
-            selectionLayer?.strokeColor = NSColor.blue.cgColor
-            selectionLayer?.fillColor = nil // 无填充
-            selectionLayer?.lineWidth = 1.0
-            self.layer?.addSublayer(selectionLayer!)
-        }
-
-        if let startPoint = startPoint, let currentPoint = currentPoint {
-            selectionRect = NSRect(x: min(startPoint.x, currentPoint.x),
-                              y: min(startPoint.y, currentPoint.y),
-                              width: abs(currentPoint.x - startPoint.x),
-                              height: abs(currentPoint.y - startPoint.y))
-            selectionLayer?.path = CGPath(rect: selectionRect, transform: nil)
         }
     }
 }

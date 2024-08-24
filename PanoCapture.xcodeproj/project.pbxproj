@@ -18,6 +18,9 @@
 		E5236CE22C7476620094FB82 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CE12C7476620094FB82 /* MainView.swift */; };
 		E5236CE52C7498810094FB82 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CE42C7498810094FB82 /* MainWindow.swift */; };
 		E5236D262C75D3540094FB82 /* ScreenShotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236D252C75D3540094FB82 /* ScreenShotHelper.swift */; };
+		E5BA25D22C773BC900EB6B9D /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA25D12C773BC900EB6B9D /* MenuManager.swift */; };
+		E5BA25D42C7A134800EB6B9D /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA25D32C7A134800EB6B9D /* Channel.swift */; };
+		E5BA25D62C7A165200EB6B9D /* ImageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA25D52C7A165200EB6B9D /* ImageHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +57,9 @@
 		E5236CE32C7498530094FB82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E5236CE42C7498810094FB82 /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		E5236D252C75D3540094FB82 /* ScreenShotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotHelper.swift; sourceTree = "<group>"; };
+		E5BA25D12C773BC900EB6B9D /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
+		E5BA25D32C7A134800EB6B9D /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		E5BA25D52C7A165200EB6B9D /* ImageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,9 @@
 				E5236CE12C7476620094FB82 /* MainView.swift */,
 				E5236CE42C7498810094FB82 /* MainWindow.swift */,
 				E5236D252C75D3540094FB82 /* ScreenShotHelper.swift */,
+				E5BA25D12C773BC900EB6B9D /* MenuManager.swift */,
+				E5BA25D32C7A134800EB6B9D /* Channel.swift */,
+				E5BA25D52C7A165200EB6B9D /* ImageHandler.swift */,
 			);
 			path = PanoCapture;
 			sourceTree = "<group>";
@@ -265,11 +274,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5BA25D22C773BC900EB6B9D /* MenuManager.swift in Sources */,
+				E5BA25D42C7A134800EB6B9D /* Channel.swift in Sources */,
 				E5236CAD2C741D300094FB82 /* ViewController.swift in Sources */,
 				E5236D262C75D3540094FB82 /* ScreenShotHelper.swift in Sources */,
 				E5236CE22C7476620094FB82 /* MainView.swift in Sources */,
 				E5236CE52C7498810094FB82 /* MainWindow.swift in Sources */,
 				E5236CAB2C741D300094FB82 /* AppDelegate.swift in Sources */,
+				E5BA25D62C7A165200EB6B9D /* ImageHandler.swift in Sources */,
 				E5236CD82C742C1C0094FB82 /* MainWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

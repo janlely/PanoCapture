@@ -7,6 +7,7 @@
 
 import Foundation
 import Cocoa
+import os.log
 
 class MainWindowController: NSWindowController {
     var trackingArea: NSTrackingArea?
@@ -14,28 +15,34 @@ class MainWindowController: NSWindowController {
     
     
     override func windowDidLoad() {
+        os_log(.info, log: log, "windowDidLoad")
         super.windowDidLoad()
         window?.isOpaque = false
-//        window?.backgroundColor = NSColor.black.withAlphaComponent(0.5)
-        window?.backgroundColor = NSColor.clear
+        window?.backgroundColor = NSColor.black.withAlphaComponent(0.5)
         window?.ignoresMouseEvents = false
         window?.acceptsMouseMovedEvents = true
         window?.styleMask = [.borderless, .fullSizeContentView]
         window?.titlebarAppearsTransparent = true
         window?.level = .screenSaver
-    
-        window?.setFrame(NSScreen.main?.frame ?? .zero, display: true)
         trackingArea = NSTrackingArea(rect: window!.contentView!.bounds,
                                           options: [.activeAlways, .mouseEnteredAndExited, .mouseMoved],
                                           owner: self,
                                           userInfo: nil)
         window?.contentView?.addTrackingArea(trackingArea!)
     }
+    
+    func setWindowFrame(_ frame: NSRect?) {
+        guard let frame = frame else {
+            os_log(.error, log: log, "error setWindowFrame")
+            return
+        }
+        window?.setFrame(frame, display: true)
+    }
+    
    
     override func mouseEntered(with event: NSEvent) {
         super.mouseEntered(with: event)
         NSLog("mouseEntered")
-        NSCursor.crosshair.set()
     }
     override func mouseExited(with event: NSEvent) {
         super.mouseExited(with: event)
