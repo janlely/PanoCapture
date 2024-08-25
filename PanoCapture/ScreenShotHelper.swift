@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import ScreenCaptureKit
+import os.log
 
 class ScreenShotHelper {
     
@@ -17,6 +18,7 @@ class ScreenShotHelper {
     var runLoopSource: CFRunLoopSource?
     var mainWindowController: MainWindowController?
     var currentScreen: NSScreen?
+    var isNormalMode: Bool = true
     
     private init() {
     }
@@ -44,7 +46,7 @@ class ScreenShotHelper {
         
         //二次查检
         if eventTap == nil {
-            print("Failed to create event tap")
+            os_log(.error, log: log, "error create CGEventTap")
             return
         }
         
@@ -59,7 +61,7 @@ class ScreenShotHelper {
         guard let eventTap = eventTap, let runLoopSource = runLoopSource else {
             return
         }
-        NSLog("disableEventTap")
+        os_log(.info, log: log, "disableEventTap")
         // 禁用事件监听
         CGEvent.tapEnable(tap: eventTap, enable: false)
         
@@ -70,6 +72,7 @@ class ScreenShotHelper {
     
 
     func captureScreenshot(display: SCDisplay, rect: CGRect, completion: @escaping (CGImage?) -> Void) {
+        os_log(.info, log: log, "captureScreenshot")
         
         let filter = SCContentFilter(display: display, excludingApplications: [], exceptingWindows: [])
         
@@ -80,12 +83,13 @@ class ScreenShotHelper {
         
         SCScreenshotManager.captureImage(contentFilter: filter, configuration: configuration) { image, error in
             if let error = error {
-                print("Error capturing screenshot: \(error.localizedDescription)")
+                os_log(.error, log: log, "Error capturing screenshot: \(error.localizedDescription)")
                 completion(nil)
             } else if let cgImage = image {
+                os_log(.info, log: log, "image captured")
                 completion(cgImage)
             } else {
-                print("No image captured")
+                os_log(.info, log: log, "No image captured")
                 completion(nil)
             }
         }
@@ -105,39 +109,66 @@ class ScreenShotHelper {
         ScreenShotHelper.shared.getWindowController().window?.orderOut(nil)
     }
     
-    func saveImage(_ rect: NSRect) {
+    func capture(_ rect: NSRect) {
+        os_log(.info, log: log, "start capture")
+        let rect = convertRectToScreenCoordinates(rect)
         let channel = Channel<CGImage>()
         Task {
             do {
                 let content = try await SCShareableContent.current
                 
                 guard !content.displays.isEmpty else {
-                    print("No displays found")
+                    os_log(.error, log: log, "No displays found")
                     channel.send(nil)
                     return
                 }
                 
+                var displayFound = false
                 content.displays.forEach { display in
-                    if display.frame.origin == rect.origin && display.frame.size == rect.size {
+                    os_log(.info, log: log, "display \(display.displayID)")
+                    if display.frame.minX <= rect.minX && display.frame.maxX >= rect.maxX {
+                        os_log(.info, log: log, "display found, start capture screen")
+                        displayFound = true
                         captureScreenshot(display: display, rect: rect, completion: {image in
                             channel.send(image)
                         })
                     }
                 }
+                if !displayFound {
+                    channel.send(nil)
+                }
                 
             } catch {
-                print("Error getting shareable content: \(error.localizedDescription)")
+                os_log(.error, log: log, "Error getting shareable content: \(error.localizedDescription)")
                 channel.send(nil)
             }
         }
         
         guard let image = channel.receive() else {
+            os_log(.error, log: log, "error receive screen capture")
             return
         }
         
         ImageHandler.shared.addImage(image)
     }
     
+    func save() {
+        do {
+            try ImageHandler.shared.save()
+        } catch {
+            os_log(.error, log: log, "save image failed, \(error.localizedDescription)")
+        }
+    }
+    
+    func convertRectToScreenCoordinates(_ rect: NSRect) -> NSRect {
+        let windowController = getWindowController()
+        let rectInWindowCoordinates = windowController.window!.convertToScreen(rect)
+        let screenRect = NSRect(x: rectInWindowCoordinates.origin.x,
+                                y: currentScreen!.frame.height - rectInWindowCoordinates.origin.y - rectInWindowCoordinates.height,
+                                width: rectInWindowCoordinates.width,
+                                height: rectInWindowCoordinates.height)
+        return screenRect
+    }
 }
 
 func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
@@ -146,7 +177,7 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
     }
     //捕捉Esc按键退出程序
     if type == CGEventType.keyDown {
-        NSLog("CGEventType.keyDown")
+        os_log(.info, log: log, "CGEventType.keyDown")
         let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
                 
         // 检查按键代码是否为Esc键 (键码 53)
@@ -158,7 +189,7 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
     }
     //阻止鼠标触达屏幕顶部，因为在顶部点击会使窗口失去焦点
     if mouseHitTop(event) {
-        NSLog("reset mouse")
+        os_log(.info, log: log, "reset mouse")
         pullMouseBack(event)
     }
     return Unmanaged.passRetained(event)

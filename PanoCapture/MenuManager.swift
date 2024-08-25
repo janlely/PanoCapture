@@ -43,6 +43,16 @@ class MenuManager {
     }
     
     @objc func startQuickSelection() {
+        ScreenShotHelper.shared.isNormalMode = true
+        showCaptureUI()
+    }
+    
+    @objc func startDynamicSelection() {
+        ScreenShotHelper.shared.isNormalMode = false
+        showCaptureUI()
+    }
+    
+    func showCaptureUI() {
         let windowController = ScreenShotHelper.shared.getWindowController()
         ScreenShotHelper.shared.disableEventTap()
         guard let currentScreen = ScreenShotHelper.shared.findCurrentScreen() else {
@@ -51,24 +61,20 @@ class MenuManager {
         }
         windowController.setWindowFrame(currentScreen.frame)
         NSLog("\(String(describing: NSWorkspace.shared.frontmostApplication?.bundleIdentifier))")
-        NSApp.activate(ignoringOtherApps: true)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(windowDidBecomeMain(_:)),
             name: NSWindow.didBecomeKeyNotification,
             object: windowController.window
         )
+        NSApp.activate(ignoringOtherApps: true)
         windowController.showWindow(nil)
-        ScreenShotHelper.shared.enableEventTap()
-    }
-    
-    @objc func startDynamicSelection() {
         ScreenShotHelper.shared.enableEventTap()
     }
     @objc func windowDidBecomeMain(_ notification: Notification) {
         NSLog("windowDidBecomeMain")
         //更新光标样式
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             NSCursor.crosshair.set()
         }
         NotificationCenter.default.removeObserver(

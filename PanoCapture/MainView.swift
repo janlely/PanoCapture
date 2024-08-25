@@ -33,11 +33,13 @@ class MainView: NSView, CAAnimationDelegate {
     
     override func mouseDown(with event: NSEvent) {
         NSLog("\(String(describing: NSWorkspace.shared.frontmostApplication?.bundleIdentifier))")
-        startPoint = self.convert(event.locationInWindow, from: nil)
+//        startPoint = self.convert(event.locationInWindow, from: nil)
+        startPoint = event.locationInWindow
     }
     
     override func mouseDragged(with event: NSEvent) {
-        currentPoint = self.convert(event.locationInWindow, from: nil)
+//        currentPoint = self.convert(event.locationInWindow, from: nil)
+        currentPoint = event.locationInWindow
         updateSelectionLayer()
     }
     
@@ -50,11 +52,19 @@ class MainView: NSView, CAAnimationDelegate {
         if abs(sp.x - cp.x) < 5 || abs(sp.y - cp.y) < 5 {
             return
         }
-        window?.ignoresMouseEvents = true
-        NSCursor.arrow.set()
         // 在这里调用闪光动画
-        if let selectionRect = selectionRect {
-            flashSelectionArea(selectionRect)
+        if let selectionRect = selectionRect?.insetBy(dx: 1, dy: 1) {
+            ScreenShotHelper.shared.capture(selectionRect)
+            if ScreenShotHelper.shared.isNormalMode {
+                playCaptureAnimation(selectionRect) {
+                    ScreenShotHelper.shared.clear()
+                    ScreenShotHelper.shared.save()
+                }
+            }else {
+                self.window?.ignoresMouseEvents = true
+                NSCursor.arrow.set()
+                //TODO: 开启一个定时任务，定时截取区域中的图像，如果图像发生变动且停留达到0.75秒则再截取一张，同时立即渲染一个结束按钮
+            }
         }
     }
     
@@ -67,14 +77,6 @@ class MainView: NSView, CAAnimationDelegate {
         return true
     }
     
-    func flashSelectionArea(_ rect: NSRect) {
-        NSLog("flashSelectionArea")
-        //保存图片
-        ScreenShotHelper.shared.saveImage(rect)
-        //播放动画
-        playCaptureAnimation(rect)
-
-    }
     
     func updateSelectionLayer() {
         if selectionLayer == nil {
@@ -99,7 +101,7 @@ class MainView: NSView, CAAnimationDelegate {
         self.selectionLayer = nil
     }
     
-    func playCaptureAnimation(_ rect: NSRect) {
+    func playCaptureAnimation(_ rect: NSRect, completion: @escaping () -> Void) {
         
         let flashLayer = CALayer()
         flashLayer.frame = rect
@@ -118,6 +120,8 @@ class MainView: NSView, CAAnimationDelegate {
         // 动画完成后移除layer
         CATransaction.setCompletionBlock {
             flashLayer.removeFromSuperlayer()
+            completion()
         }
     }
+    
 }
