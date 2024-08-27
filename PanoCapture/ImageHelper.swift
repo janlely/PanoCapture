@@ -35,21 +35,13 @@ class ImageHelper {
             os_log(.error, log: log, "no image to save")
             return
         }
-        let date = Date().timeIntervalSince1970
-        guard let savePath = promptForDirectoryURL() else {
-            os_log(.info, log: log, "error choose save path")
-            clear()
-            return
-        }
-       
-        //begin debug
-        var count = 0
-        for image in images {
-            try saveCGImageToPNG(image, to: (savePath.appendingPathComponent("PanoCapture_\(date)_\(count).png")))
-            count += 1
-        }
-        //end debug
-    
+//        let date = Date().timeIntervalSince1970
+//        guard let savePath = promptForDirectoryURL() else {
+//            os_log(.info, log: log, "error choose save path")
+//            clear()
+//            return
+//        }
+        
         var resultImg = images[0]
         for image in images.dropFirst() {
             guard let concatImg = ImageConcator.concatImg(img1: resultImg, img2: image) else {
@@ -58,7 +50,8 @@ class ImageHelper {
             }
             resultImg = concatImg
         }
-        try saveCGImageToPNG(resultImg, to: (savePath.appendingPathComponent("PanoCapture_\(date).png")))
+        copyCGImageToClipboard(cgImage: resultImg)
+//        try saveCGImageToPNG(resultImg, to: (savePath.appendingPathComponent("PanoCapture_\(date).png")))
         os_log(.info, log: log, "image save done")
     }
     
@@ -90,13 +83,28 @@ class ImageHelper {
         openPanel.canChooseDirectories = true
         openPanel.canCreateDirectories = true
         openPanel.canChooseFiles = false  // 确保不能选择文件
-
+        
         if openPanel.runModal() == .OK {
             return openPanel.url
         } else {
             return nil
         }
     }
+    
+    func copyCGImageToClipboard(cgImage: CGImage) {
+        // 创建一个 NSPasteboard 对象
+        let pasteboard = NSPasteboard.general
+        
+        // 清空剪贴板
+        pasteboard.clearContents()
+        
+        // 创建一个 NSImage 对象
+        let image = NSImage(cgImage: cgImage, size: NSZeroSize)
+        
+        // 将图像写入剪贴板
+        pasteboard.writeObjects([image])
+    }
+}
 
 //    func selectPixels(from image: CGImage, gridSize: Int) -> [CGPoint] {
 //        let width = image.width
@@ -190,4 +198,4 @@ class ImageHelper {
 //
 //        return hash1 == hash2
 //    }
-}
+//}

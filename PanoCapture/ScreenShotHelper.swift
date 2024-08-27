@@ -74,7 +74,7 @@ class ScreenShotHelper {
     
 
     func captureScreenshot(_ content: SCShareableContent, display: SCDisplay, rect: CGRect, completion: @escaping (CGImage?) -> Void) {
-        os_log(.info, log: log, "captureScreenshot")
+        os_log(.info, log: log, "captureScreenshot, display: \(display.width)x\(display.height)")
         guard let runninApp = content.applications
             .filter({ $0.bundleIdentifier == NSRunningApplication.current.bundleIdentifier}).first else {
             os_log(.error, log: log, "error get runninApp")
@@ -85,9 +85,10 @@ class ScreenShotHelper {
         let configuration = SCStreamConfiguration()
         // 设置为指定区域抓取
         configuration.showsCursor = false
+        configuration.captureResolution = .best
         configuration.sourceRect = rect
-        configuration.width = Int(rect.width)
-        configuration.height = Int(rect.height)
+        configuration.width = Int(rect.width * 2)
+        configuration.height = Int(rect.height * 2)
         
         SCScreenshotManager.captureImage(contentFilter: filter, configuration: configuration) { image, error in
             if let error = error {
