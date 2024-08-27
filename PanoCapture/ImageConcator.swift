@@ -28,10 +28,9 @@ class ImageConcator {
         var bestHeight = 0
         var bestSSIM: Float = 0
         
-        let maxHeight = height2
         // 逐步减少重叠高度
-        for currentHeight in (1...maxHeight).reversed() {
-            let rect1 = CGRect(x: 0, y: maxHeight - currentHeight, width: img1.width, height: currentHeight)
+        for currentHeight in (1...height2).reversed() {
+            let rect1 = CGRect(x: 0, y: img1.height - currentHeight, width: img1.width, height: currentHeight)
             let rect2 = CGRect(x: 0, y: 0, width: img2.width, height: currentHeight)
 
             guard let croppedImage1 = img1.cropping(to: rect1),
@@ -48,7 +47,7 @@ class ImageConcator {
             }
 
             // 如果SSIM非常接近1，可以提前结束搜索
-            if currentSSIM > 0.99 {
+            if currentSSIM > 0.95 {
                 break
             }
         }

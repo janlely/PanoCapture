@@ -41,6 +41,15 @@ class ImageHelper {
             clear()
             return
         }
+       
+        //begin debug
+        var count = 0
+        for image in images {
+            try saveCGImageToPNG(image, to: (savePath.appendingPathComponent("PanoCapture_\(date)_\(count).png")))
+            count += 1
+        }
+        //end debug
+    
         var resultImg = images[0]
         for image in images.dropFirst() {
             guard let concatImg = ImageConcator.concatImg(img1: resultImg, img2: image) else {

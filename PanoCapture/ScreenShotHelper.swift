@@ -73,10 +73,14 @@ class ScreenShotHelper {
     }
     
 
-    func captureScreenshot(display: SCDisplay, rect: CGRect, completion: @escaping (CGImage?) -> Void) {
+    func captureScreenshot(_ content: SCShareableContent, display: SCDisplay, rect: CGRect, completion: @escaping (CGImage?) -> Void) {
         os_log(.info, log: log, "captureScreenshot")
-        
-        let filter = SCContentFilter(display: display, excludingApplications: [], exceptingWindows: [])
+        guard let runninApp = content.applications
+            .filter({ $0.bundleIdentifier == NSRunningApplication.current.bundleIdentifier}).first else {
+            os_log(.error, log: log, "error get runninApp")
+            return
+        }
+        let filter = SCContentFilter(display: display, excludingApplications: [runninApp], exceptingWindows: [])
         
         let configuration = SCStreamConfiguration()
         // 设置为指定区域抓取
@@ -133,7 +137,7 @@ class ScreenShotHelper {
                     if display.frame.minX <= rect.minX && display.frame.maxX >= rect.maxX {
                         os_log(.info, log: log, "display found, start capture screen")
                         displayFound = true
-                        captureScreenshot(display: display, rect: rect, completion: {image in
+                        captureScreenshot(content, display: display, rect: rect, completion: {image in
                             channel.send(image)
                         })
                     }
@@ -217,52 +221,3 @@ func pullMouseBack(_ event: CGEvent) {
 }
 
 
-
-
-
-//extension CGEventType {
-//    var description: String {
-//        switch self {
-//        case .leftMouseDown:
-//            return "leftMouseDown"
-//        case .leftMouseUp:
-//            return "leftMouseUp"
-//        case .rightMouseDown:
-//            return "rightMouseDown"
-//        case .rightMouseUp:
-//            return "rightMouseUp"
-//        case .mouseMoved:
-//            return "mouseMoved"
-//        case .leftMouseDragged:
-//            return "leftMouseDragged"
-//        case .keyDown:
-//            return "keyDown"
-//        case .keyUp:
-//            return "keyUp"
-//        case .flagsChanged:
-//            return "flagsChanged"
-//        case .scrollWheel:
-//            return "scrollWheel"
-//        case .tabletPointer:
-//            return "tabletPointer"
-//        case .tabletProximity:
-//            return "tabletProximity"
-//        case .null:
-//            return "null"
-//        case .rightMouseDragged:
-//            return "rightMouseDragged"
-//        case .otherMouseDown:
-//            return "otherMouseDown"
-//        case .otherMouseUp:
-//            return "otherMouseUp"
-//        case .otherMouseDragged:
-//            return "otherMouseDragged"
-//        case .tapDisabledByTimeout:
-//            return "tapDisabledByTimeout"
-//        case .tapDisabledByUserInput:
-//            return "tapDisabledByUserInput"
-//        @unknown default:
-//            return "Unknown Event Type"
-//        }
-//    }
-//}

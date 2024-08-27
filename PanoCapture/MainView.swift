@@ -51,7 +51,7 @@ class MainView: NSView, CAAnimationDelegate {
             return
         }
         //截图区域为选择区域向内缩小一个像素，避免边框被截到
-        if let selectionRect = selectionRect?.insetBy(dx: 1, dy: 1) {
+        if let selectionRect = selectionRect {
             if ScreenShotHelper.shared.isNormalMode {
                 ImageHelper.shared.addImage(ScreenShotHelper.shared.capture(selectionRect))
                 playCaptureAnimation(selectionRect) {
