@@ -19,6 +19,8 @@ class ScreenShotHelper {
     var mainWindowController: MainWindowController?
     var currentScreen: NSScreen?
     var isNormalMode: Bool = true
+    var isStopped: Bool = false
+    let ssimCalculator = SSIMCalculator()
     
     private init() {
     }
@@ -80,6 +82,8 @@ class ScreenShotHelper {
         // 设置为指定区域抓取
         configuration.showsCursor = false
         configuration.sourceRect = rect
+        configuration.width = Int(rect.width)
+        configuration.height = Int(rect.height)
         
         SCScreenshotManager.captureImage(contentFilter: filter, configuration: configuration) { image, error in
             if let error = error {
@@ -109,7 +113,7 @@ class ScreenShotHelper {
         ScreenShotHelper.shared.getWindowController().window?.orderOut(nil)
     }
     
-    func capture(_ rect: NSRect) {
+    func capture(_ rect: NSRect) -> CGImage? {
         os_log(.info, log: log, "start capture")
         let rect = convertRectToScreenCoordinates(rect)
         let channel = Channel<CGImage>()
@@ -146,15 +150,15 @@ class ScreenShotHelper {
         
         guard let image = channel.receive() else {
             os_log(.error, log: log, "error receive screen capture")
-            return
+            return nil
         }
-        
-        ImageHandler.shared.addImage(image)
+        return image
     }
     
     func save() {
         do {
-            try ImageHandler.shared.save()
+            try ImageHelper.shared.save()
+            clear()
         } catch {
             os_log(.error, log: log, "save image failed, \(error.localizedDescription)")
         }
@@ -184,6 +188,15 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
         if keyCode == 53 {
             //退出程序
             ScreenShotHelper.shared.clear()
+            ScreenShotHelper.shared.isStopped = true
+            return nil
+        }
+        // 检查按键代码是否为Enter键 (键码 36)
+        if keyCode == 36 {
+            //退出程序
+            ScreenShotHelper.shared.clear()
+            ScreenShotHelper.shared.isStopped = true
+            ScreenShotHelper.shared.save()
             return nil
         }
     }

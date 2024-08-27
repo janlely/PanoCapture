@@ -44,15 +44,22 @@ class MenuManager {
     
     @objc func startQuickSelection() {
         ScreenShotHelper.shared.isNormalMode = true
+        ScreenShotHelper.shared.clear()
+        ImageHelper.shared.clear()
+        ScreenShotHelper.shared.isStopped = false
         showCaptureUI()
     }
     
     @objc func startDynamicSelection() {
         ScreenShotHelper.shared.isNormalMode = false
+        ScreenShotHelper.shared.clear()
+        ImageHelper.shared.clear()
+        ScreenShotHelper.shared.isStopped = false
         showCaptureUI()
     }
     
     func showCaptureUI() {
+        NSApp.activate(ignoringOtherApps: true)
         let windowController = ScreenShotHelper.shared.getWindowController()
         ScreenShotHelper.shared.disableEventTap()
         guard let currentScreen = ScreenShotHelper.shared.findCurrentScreen() else {
@@ -67,8 +74,8 @@ class MenuManager {
             name: NSWindow.didBecomeKeyNotification,
             object: windowController.window
         )
-        NSApp.activate(ignoringOtherApps: true)
         windowController.showWindow(nil)
+        windowController.window?.makeKeyAndOrderFront(nil)
         ScreenShotHelper.shared.enableEventTap()
     }
     @objc func windowDidBecomeMain(_ notification: Notification) {

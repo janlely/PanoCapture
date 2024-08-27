@@ -1,0 +1,3 @@
+[submodule "Dependencies/SSIM"]
+	path = Dependencies/SSIM
+	url = https://github.com/janlely/SSIM.git

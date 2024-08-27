@@ -18,9 +18,12 @@
 		E5236CE22C7476620094FB82 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CE12C7476620094FB82 /* MainView.swift */; };
 		E5236CE52C7498810094FB82 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236CE42C7498810094FB82 /* MainWindow.swift */; };
 		E5236D262C75D3540094FB82 /* ScreenShotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5236D252C75D3540094FB82 /* ScreenShotHelper.swift */; };
+		E5A5331E2C7D5D3600EFD774 /* SSIMCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A5331C2C7D5D3600EFD774 /* SSIMCalculator.swift */; };
+		E5A5331F2C7D5D3600EFD774 /* ssimKernel.metal in Sources */ = {isa = PBXBuildFile; fileRef = E5A5331D2C7D5D3600EFD774 /* ssimKernel.metal */; };
+		E5A533212C7D626F00EFD774 /* ImageConcator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A533202C7D626F00EFD774 /* ImageConcator.swift */; };
 		E5BA25D22C773BC900EB6B9D /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA25D12C773BC900EB6B9D /* MenuManager.swift */; };
 		E5BA25D42C7A134800EB6B9D /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA25D32C7A134800EB6B9D /* Channel.swift */; };
-		E5BA25D62C7A165200EB6B9D /* ImageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA25D52C7A165200EB6B9D /* ImageHandler.swift */; };
+		E5BA25D62C7A165200EB6B9D /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA25D52C7A165200EB6B9D /* ImageHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,9 +60,12 @@
 		E5236CE32C7498530094FB82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E5236CE42C7498810094FB82 /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		E5236D252C75D3540094FB82 /* ScreenShotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotHelper.swift; sourceTree = "<group>"; };
+		E5A5331C2C7D5D3600EFD774 /* SSIMCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSIMCalculator.swift; path = Dependencies/SSIM/SSIM/SSIMCalculator.swift; sourceTree = SOURCE_ROOT; };
+		E5A5331D2C7D5D3600EFD774 /* ssimKernel.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = ssimKernel.metal; path = Dependencies/SSIM/SSIM/ssimKernel.metal; sourceTree = SOURCE_ROOT; };
+		E5A533202C7D626F00EFD774 /* ImageConcator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConcator.swift; sourceTree = "<group>"; };
 		E5BA25D12C773BC900EB6B9D /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		E5BA25D32C7A134800EB6B9D /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
-		E5BA25D52C7A165200EB6B9D /* ImageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHandler.swift; sourceTree = "<group>"; };
+		E5BA25D52C7A165200EB6B9D /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +116,8 @@
 		E5236CA92C741D300094FB82 /* PanoCapture */ = {
 			isa = PBXGroup;
 			children = (
+				E5A5331C2C7D5D3600EFD774 /* SSIMCalculator.swift */,
+				E5A5331D2C7D5D3600EFD774 /* ssimKernel.metal */,
 				E5236CE32C7498530094FB82 /* Info.plist */,
 				E5236CD72C742C1C0094FB82 /* MainWindowController.swift */,
 				E5236CAA2C741D300094FB82 /* AppDelegate.swift */,
@@ -122,7 +130,8 @@
 				E5236D252C75D3540094FB82 /* ScreenShotHelper.swift */,
 				E5BA25D12C773BC900EB6B9D /* MenuManager.swift */,
 				E5BA25D32C7A134800EB6B9D /* Channel.swift */,
-				E5BA25D52C7A165200EB6B9D /* ImageHandler.swift */,
+				E5BA25D52C7A165200EB6B9D /* ImageHelper.swift */,
+				E5A533202C7D626F00EFD774 /* ImageConcator.swift */,
 			);
 			path = PanoCapture;
 			sourceTree = "<group>";
@@ -275,13 +284,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5BA25D22C773BC900EB6B9D /* MenuManager.swift in Sources */,
+				E5A5331F2C7D5D3600EFD774 /* ssimKernel.metal in Sources */,
 				E5BA25D42C7A134800EB6B9D /* Channel.swift in Sources */,
 				E5236CAD2C741D300094FB82 /* ViewController.swift in Sources */,
 				E5236D262C75D3540094FB82 /* ScreenShotHelper.swift in Sources */,
 				E5236CE22C7476620094FB82 /* MainView.swift in Sources */,
+				E5A5331E2C7D5D3600EFD774 /* SSIMCalculator.swift in Sources */,
+				E5A533212C7D626F00EFD774 /* ImageConcator.swift in Sources */,
 				E5236CE52C7498810094FB82 /* MainWindow.swift in Sources */,
 				E5236CAB2C741D300094FB82 /* AppDelegate.swift in Sources */,
-				E5BA25D62C7A165200EB6B9D /* ImageHandler.swift in Sources */,
+				E5BA25D62C7A165200EB6B9D /* ImageHelper.swift in Sources */,
 				E5236CD82C742C1C0094FB82 /* MainWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

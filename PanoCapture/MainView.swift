@@ -33,12 +33,10 @@ class MainView: NSView, CAAnimationDelegate {
     
     override func mouseDown(with event: NSEvent) {
         NSLog("\(String(describing: NSWorkspace.shared.frontmostApplication?.bundleIdentifier))")
-//        startPoint = self.convert(event.locationInWindow, from: nil)
         startPoint = event.locationInWindow
     }
     
     override func mouseDragged(with event: NSEvent) {
-//        currentPoint = self.convert(event.locationInWindow, from: nil)
         currentPoint = event.locationInWindow
         updateSelectionLayer()
     }
@@ -52,10 +50,10 @@ class MainView: NSView, CAAnimationDelegate {
         if abs(sp.x - cp.x) < 5 || abs(sp.y - cp.y) < 5 {
             return
         }
-        // 在这里调用闪光动画
+        //截图区域为选择区域向内缩小一个像素，避免边框被截到
         if let selectionRect = selectionRect?.insetBy(dx: 1, dy: 1) {
-            ScreenShotHelper.shared.capture(selectionRect)
             if ScreenShotHelper.shared.isNormalMode {
+                ImageHelper.shared.addImage(ScreenShotHelper.shared.capture(selectionRect))
                 playCaptureAnimation(selectionRect) {
                     ScreenShotHelper.shared.clear()
                     ScreenShotHelper.shared.save()
@@ -64,8 +62,77 @@ class MainView: NSView, CAAnimationDelegate {
                 self.window?.ignoresMouseEvents = true
                 NSCursor.arrow.set()
                 //TODO: 开启一个定时任务，定时截取区域中的图像，如果图像发生变动且停留达到0.75秒则再截取一张，同时立即渲染一个结束按钮
+                dynamicCapture(selectionRect, lastImage: nil, isNew: true, repeat: 0)
+                
             }
         }
+    }
+    
+    func dynamicCapture(_ rect: NSRect, lastImage: CGImage?, isNew: Bool, repeat: Int) {
+        if ScreenShotHelper.shared.isStopped {
+            //手动停止
+            os_log(.info, log: log, "capture stopped")
+            return
+        }
+        guard let image = ScreenShotHelper.shared.capture(rect) else {
+            //获取屏幕截图失败
+            os_log(.error, log: log, "error capture screen")
+            return
+        }
+        switch nameItLater(image1: lastImage, image2: image, isNew: isNew, repeat: `repeat`) {
+        case .begin, .satisfied:
+            ImageHelper.shared.addImage(image)
+            playCaptureAnimation(rect) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    self.dynamicCapture(rect, lastImage: image, isNew: false, repeat: 0)
+                }
+            }
+        case .captured:
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                self.dynamicCapture(rect, lastImage: image, isNew: false, repeat: 0)
+            }
+        case .changing:
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                self.dynamicCapture(rect, lastImage: image, isNew: true, repeat: 0)
+            }
+        case .staying:
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                self.dynamicCapture(rect, lastImage: image, isNew: true, repeat: `repeat`+1)
+            }
+        }
+    }
+    
+    //比较前后两张截图，推断是否为用户想要添加的截图
+    func nameItLater(image1: CGImage?, image2: CGImage, isNew: Bool, repeat: Int) -> NameItLater {
+        //第一张图
+        guard let image1 = image1 else {
+            return .begin
+        }
+        
+        //正在改变内容
+        if !sameImage(image1: image1, image2: image2) {
+            return .changing
+        }
+        
+        //已经截过了
+        if !isNew {
+            return .captured
+        }
+        
+        //停留时间不足
+        if `repeat` < 2 {
+            return .staying
+        }
+        
+        //可以截图了
+        return .satisfied
+    }
+    
+    func sameImage(image1: CGImage, image2: CGImage) -> Bool {
+        os_log(.info, log: log, "start at: \(Date().timeIntervalSince1970)")
+        let result = ScreenShotHelper.shared.ssimCalculator.computeSSIM(image1: image1, image2: image2)
+        os_log(.info, log: log, "end at: \(Date().timeIntervalSince1970), result: \(result)")
+        return result > 0.99
     }
     
     override func viewDidMoveToWindow() {
@@ -124,4 +191,14 @@ class MainView: NSView, CAAnimationDelegate {
         }
     }
     
+
+    
+}
+
+enum NameItLater {
+    case begin
+    case changing
+    case staying
+    case captured
+    case satisfied
 }
